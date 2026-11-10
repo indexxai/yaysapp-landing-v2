@@ -1,9 +1,11 @@
-# YaysApp website (v2)
+# YaysApp website
 
 The public website at yaysapp.com: the home page, **Support**, **Privacy**, **Terms** and **Delete account**.
-It replaces the plain-HTML page on `main` with the same pages, rebuilt in Next.js to match the YaysApp v2 design.
 
-It is a **static site**: `npm run build` writes plain HTML, CSS and images to `out/`. Nothing runs on a server.
+The home page is the same page the YaysApp web app shows to signed-out visitors (`apps/web/components/landing.tsx`),
+with the same styles, art and Ask Jack assistant. Its "Open web app" buttons go to the web app.
+
+It's a **static site**: `npm run build` writes plain HTML, CSS and images to `out/`. Nothing runs on a server.
 
 ## Run it
 
@@ -11,19 +13,29 @@ Needs Node 20 or newer.
 
 ```bash
 npm install
-npm run dev        # http://localhost:3200, reloads as you edit
+npm run dev        # http://localhost:3200
 ```
 
 ## Build and host
 
+Set where the site sends people, then build:
+
 ```bash
+NEXT_PUBLIC_WEB_APP_URL=https://web.yaysapp.com \
+NEXT_PUBLIC_API_URL=https://api.yaysapp.com \
 npm run build      # writes the site to out/
-npm start          # serves out/ at http://localhost:3200 to check it
 ```
+
+| Setting | What it's for | If not set |
+|---|---|---|
+| `NEXT_PUBLIC_WEB_APP_URL` | The YaysApp web app ("Open web app" buttons) | `https://web.yaysapp.com` (development: `http://localhost:3000`) |
+| `NEXT_PUBLIC_API_URL` | The YaysApp API, for the Ask Jack assistant | `https://api.yaysapp.com` (development: `http://localhost:4000`) |
+
+The API must allow this site's address in its `CORS_ORIGINS`, or Ask Jack can't answer.
 
 Upload the contents of `out/` to any static host (Netlify, Vercel, Cloudflare Pages, S3 + CloudFront, nginx).
 Pages are written as `privacy.html`, `terms.html` and so on. Most hosts serve `/privacy` from `privacy.html` on
-their own; on nginx add `try_files $uri $uri.html $uri/ =404;`. `404.html` is the not-found page.
+their own; on nginx add `try_files $uri $uri.html $uri/ =404;`.
 
 ## Test it
 
@@ -36,15 +48,14 @@ npm run test:e2e                  # builds, then checks every page on desktop an
 
 | What | Where |
 |---|---|
-| Home page | `app/page.tsx`, styles in `app/site.css` |
-| Support and Delete account forms | `components/forms.tsx` (they post to the Indexx API, `lib/links.ts`) |
-| Privacy, Terms, Support and Delete account wording | `content/*.html`, shown as written: change the legal wording only with approval |
-| Google Play link, Indexx API address | `lib/links.ts` |
-| Colours, type and spacing | `app/tokens.css`, copied from the YaysApp app project (`packages/tokens`). Change them there and copy the file again, so the site and the app stay the same. |
-| Images and logos | `public/img/` |
+| Home page, header, footer, Ask Jack | `components/landing.tsx` |
+| Privacy, Terms, Support and Delete account wording | `content/*.html`, shown word for word. Change the legal wording only with approval. |
+| Support and Delete account forms | `components/forms.tsx` (they post to the Indexx API) |
+| Styles | `styles/yays.css`, `app.css`, `phase2.css`, `circles.css`: copies of the web app's; `styles/site.css`: the legal pages |
+| Colours and type, icons | `styles/tokens.css`, `lib/icons.json`: copies of the design tokens |
+| Art, logos | `public/lineart`, `public/brand` |
+| Links (web app, API, Google Play) | `lib/links.ts` |
 
-## Before it goes live
-
-- **App Store:** the iOS app isn't published yet, so its badge says "Coming soon". When it ships, link the badge
-  to `https://apps.apple.com/app/yaysapp/id{APPLE_APP_ID}`.
-- **Google Play:** live, `com.indexx.yaysapp`.
+**Where it comes from:** this site is published from the YaysApp project (`indexxai/yaysapp-website-v2`, folder
+`apps/landing`), where its home page is kept the same as the web app's. Make lasting changes there and publish again;
+the styles, art, tokens and icons here are copies.
