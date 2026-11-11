@@ -1,0 +1,32 @@
+# Netlify redirects for yaysapp.com (the website).
+# The web app lives on web.yaysapp.com, so its pages are sent there,
+# for example old links and invite links like yaysapp.com/c/CODE.
+# No catch-all rule: unknown pages should keep showing the 404 page.
+
+/app             https://web.yaysapp.com/              301
+/sign-in         https://web.yaysapp.com/sign-in       301
+/sign-in/*       https://web.yaysapp.com/sign-in/:splat 301
+/join            https://web.yaysapp.com/join          301
+/join/*          https://web.yaysapp.com/join/:splat   301
+/c/*             https://web.yaysapp.com/c/:splat      301
+/call/*          https://web.yaysapp.com/call/:splat   301
+/chats           https://web.yaysapp.com/chats         301
+/chats/*         https://web.yaysapp.com/chats/:splat  301
+/calls           https://web.yaysapp.com/calls         301
+/circles         https://web.yaysapp.com/circles       301
+/circles/*       https://web.yaysapp.com/circles/:splat 301
+/communities     https://web.yaysapp.com/communities   301
+/communities/*   https://web.yaysapp.com/communities/:splat 301
+/explore         https://web.yaysapp.com/explore       301
+/explore/*       https://web.yaysapp.com/explore/:splat 301
+/wallet          https://web.yaysapp.com/wallet        301
+/wallet/*        https://web.yaysapp.com/wallet/:splat 301
+/earn            https://web.yaysapp.com/earn          301
+/btcy            https://web.yaysapp.com/btcy          301
+/ai              https://web.yaysapp.com/ai            301
+/products        https://web.yaysapp.com/products      301
+/products/*      https://web.yaysapp.com/products/:splat 301
+/settings        https://web.yaysapp.com/settings      301
+/settings/*      https://web.yaysapp.com/settings/:splat 301
+/setup           https://web.yaysapp.com/setup         301
+/setup/*         https://web.yaysapp.com/setup/:splat  301
