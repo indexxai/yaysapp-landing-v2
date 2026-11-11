@@ -6,6 +6,7 @@ import { SIGN_IN_URL } from '@/lib/links';
 import { CHECKIN_POINTS, PRODUCTS, SiteError, siteAsk, siteLead } from '@/lib/site';
 import { setTheme, useTheme } from '@/lib/theme';
 import { Field, LineArt, OvalButton } from './ui';
+import { NavLauncher } from './product-launcher/NavLauncher';
 
 /* The YaysApp website. The same page as the web app's signed-out home (apps/web/components/landing.tsx), with the
    "Open web app" buttons going to the web app, and the Privacy, Terms, Support and Delete account pages alongside. */
@@ -54,7 +55,7 @@ function Stores() {
   );
 }
 const Section = ({ id, label, eyebrow, title, lead, children, art }: { id?: string; label: string; eyebrow: string; title: string; lead?: string; children?: ReactNode; art?: ReactNode }) => (
-  <section id={id} className="lp-section" aria-labelledby={`${label}-t`}>
+  <section id={id} style={{ marginTop: 50 }} className="lp-section" aria-labelledby={`${label}-t`}>
     {art}
     <div className="lp-wrap">
       <div className="lp-section__head"><span className="ys-eyebrow">{eyebrow}</span><h2 id={`${label}-t`}>{title}</h2>{lead && <p>{lead}</p>}</div>
@@ -72,6 +73,7 @@ export function SiteHeader({ home = true }: { home?: boolean }) {
       <nav aria-label="Site" className="lp-nav"><a href={at('features')}>Features</a><a href={at('earn')}>Earn</a><a href={at('communities')}>Communities</a><a href={at('faq')}>Help</a></nav>
       <ThemeToggle />
       <OvalButton icon="globe" label="Open web app" size="sm" href={SIGN_IN_URL} />
+      <NavLauncher />
     </header>
   );
 }
@@ -98,81 +100,81 @@ export function Landing() {
       <SiteHeader />
 
       <main>
-      <section className="lp-hero lp-wrap">
-        <LineArt name="hype" width={300} opacity={0.2} className="lp-art lp-art--hero" />
-        <div className="lp-hero__copy">
-          <span className="ys-eyebrow">Chat. Earn. Belong.</span>
-          <h1>The chat app that rewards you for showing up.</h1>
-          <p>Message friends, join communities and earn INEX every day.</p>
-          <div className="row" style={{ gap: 24, alignItems: 'flex-start' }}>
-            <OvalButton icon="globe" label="Open web app" size="lg" href={SIGN_IN_URL} />
-            <OvalButton icon="download" label="Get the app" size="lg" variant="soft" onClick={() => document.getElementById('download')?.scrollIntoView({ behavior: 'smooth' })} />
-          </div>
-          <Stores />
-          <span className="muted p2-small">Free to use · on your phone and in your browser</span>
-        </div>
-        <div className="lp-hero__art"><img className="lp-hero__bg" src="/illustrations/hero-doodles.webp" width={900} height={1108} alt="" aria-hidden="true" /><img className="lp-hero__img" src="/illustrations/hero-cards.webp" width={1200} height={1261} alt="Three YaysApp phone screens fanned out, with a character playing bass jumping out of the front one" fetchPriority="high" /></div>
-      </section>
-
-      <Section id="features" label="f" eyebrow="Features" title="Everything you need to stay close" lead="Chats, calls, communities and an AI assistant, in one app that works the same on your phone and on the web." art={<><LineArt name="selfie" height={300} opacity={0.22} className="lp-art lp-art--r" /><LineArt name="gear" height={220} opacity={0.2} className="lp-art lp-art--c" /></>}>
-        <div className="lp-cards lp-cards--4">{FEATURES.map(([i, t, d]) => <div key={t} className="ys-card lp-card"><span className="ys-oval ys-oval--ember" style={{ width: 48 }}><Icon name={i} size={22} /></span><strong>{t}</strong><span>{d}</span></div>)}</div>
-      </Section>
-
-      <Section id="earn" label="e" eyebrow="INEX" title="Earn INEX for the things you already do" lead="INEX, the Indexx coin, adds up in your wallet. Withdraw it to your Indexx Exchange wallet, or use it across Indexx products." art={<><LineArt name="coins" height={260} opacity={0.22} className="lp-art lp-art--l" /><LineArt name="pay" height={240} opacity={0.2} className="lp-art lp-art--c" /></>}>
-        <div className="lp-earn">
-          <ul className="lp-ways">{WAYS.map(([i, t, d, p]) => <li key={t}><span className="ys-oval ys-oval--wash" style={{ width: 44 }}><Icon name={i} size={20} /></span><span className="p2-col" style={{ flex: 1 }}><strong>{t}</strong><span className="muted">{d}</span></span><b>{p}</b></li>)}</ul>
-          <div className="lp-example">
-            <div className="p2-hero lp-example__hero"><span className="ys-feature__deco a" /><span className="p2-hero__eyebrow">Your INEX</span><div className="p2-hero__num">2,450</div><span>+85 this week · 5-day streak</span></div>
-            <div className="p2-card p2-card--pad"><div className="p2-card__head"><strong>Daily check-in</strong><span className="p2-accent">Claim +20 today</span></div>
-              <div className="p2-week">{days.map((d) => <div key={d.label} className={`p2-week__day p2-week__day--${d.state}`}><span className="ys-oval">{d.state === 'done' ? <Icon name="check" size={16} /> : `+${d.p}`}</span><span>{d.label}</span></div>)}</div>
+        <section className="lp-hero lp-wrap">
+          {/* <LineArt name="hype" width={300} opacity={0.2} className="lp-art lp-art--hero" /> */}
+          <div className="lp-hero__copy">
+            <span className="ys-eyebrow">Chat. Earn. Belong.</span>
+            <h1>The chat app that rewards you for showing up.</h1>
+            <p>Message friends, join communities and earn INEX every day.</p>
+            <div className="row" style={{ gap: 24, alignItems: 'flex-start' }}>
+              <OvalButton icon="globe" label="Open web app" size="lg" href={SIGN_IN_URL} />
+              <OvalButton icon="download" label="Get the app" size="lg" variant="soft" onClick={() => document.getElementById('download')?.scrollIntoView({ behavior: 'smooth' })} />
             </div>
-            <span className="muted p2-xs">Example account. INEX rules can change.</span>
-          </div>
-        </div>
-      </Section>
-
-      <Section label="x" eyebrow="Indexx ecosystem" title="One account for every Indexx product" lead="Open BTCY, EMMM and the rest from Explore, and keep your INEX and referrals everywhere." art={<><LineArt name="trader" height={280} opacity={0.22} className="lp-art lp-art--r" /><LineArt name="wallet" height={220} opacity={0.2} className="lp-art lp-art--c" /></>}>
-        <div className="lp-cards lp-cards--6">{PRODUCTS.map((p) => <div key={p.id} className={`ys-card lp-product${p.live ? '' : ' p2-product--soon'}`}><span className="ys-oval" style={{ width: 56, ['--ys-oval-fill' as string]: '#ffffff' }}><img src={p.logo} alt="" /></span><strong>{p.name}</strong><span className="muted">{p.sub}</span></div>)}</div>
-      </Section>
-
-      <section id="communities" className="lp-section" aria-labelledby="c-t">
-        <div className="lp-wrap">
-          <div className="lp-band">
-            <span className="ys-feature__deco a" /><span className="ys-feature__deco b" />
-            <div className="lp-band__copy">
-              <span className="lp-band__eyebrow">Communities</span>
-              <h2 id="c-t">Bring your people together</h2>
-              <p>Run a trading club, a running group or your whole neighbourhood. Members pick the groups they want, and announcements reach everyone.</p>
-              <ul><li><Icon name="megaphone" size={18} />Announcements only admins post to</li><li><Icon name="check" size={18} />Approve who joins with one tap</li><li><Icon name="flag" size={18} />Reported messages go straight to admins</li></ul>
-              <OvalButton icon="plus" label="Start a community" size="md" variant="secondary" href={SIGN_IN_URL} />
-            </div>
-            <LineArt name="hype" width={360} ink="#ffffff" opacity={0.85} className="lp-band__art" />
-          </div>
-        </div>
-      </section>
-
-      <Section label="s" eyebrow="Safety and privacy" title="You decide who reaches you" art={<><LineArt name="explorer" height={300} opacity={0.22} className="lp-art lp-art--l" /><LineArt name="snap" height={220} opacity={0.2} className="lp-art lp-art--c" /></>}>
-        <div className="lp-cards lp-cards--3">{SAFETY.map(([i, t, d]) => <div key={t} className="ys-card lp-card"><span className="ys-oval ys-oval--wash" style={{ width: 52 }}><Icon name={i} size={22} /></span><strong>{t}</strong><span>{d}</span></div>)}</div>
-      </Section>
-
-      <section id="download" className="lp-section" aria-labelledby="d-t">
-        <LineArt name="reader" height={260} opacity={0.18} className="lp-art lp-art--c lp-art--low" />
-        <div className="lp-wrap lp-download">
-          <div className="p2-col" style={{ gap: 14, flex: 1 }}>
-            <span className="ys-eyebrow">Get YaysApp</span>
-            <h2 id="d-t">Start chatting in a minute</h2>
-            <p className="muted">Sign up with your phone number, find your friends and claim your first check-in today.</p>
             <Stores />
-            <div className="row" style={{ gap: 24 }}><OvalButton icon="globe" label="Open web app" size="md" href={SIGN_IN_URL} /></div>
+            <span className="muted p2-small">Free to use · on your phone and in your browser</span>
           </div>
-          <LineArt name="skater" height={320} />
-        </div>
-      </section>
+          <div className="lp-hero__art"><img className="lp-hero__bg" src="/illustrations/hero-doodles.webp" width={900} height={1108} alt="" aria-hidden="true" /><img className="lp-hero__img" src="/illustrations/hero-cards.webp" width={1200} height={1261} alt="Three YaysApp phone screens fanned out, with a character playing bass jumping out of the front one" fetchPriority="high" /></div>
+        </section>
 
-      <Section id="faq" label="q" eyebrow="Help" title="Questions people ask" art={<><LineArt name="lantern" height={240} opacity={0.22} className="lp-art lp-art--r" /><LineArt name="morning" height={240} opacity={0.2} className="lp-art lp-art--c" /></>}>
-        <div className="faq lp-faq">{FAQ.map(([q, a]) => <details key={q}><summary>{q}</summary><p>{a}</p></details>)}</div>
-        <p className="muted" style={{ textAlign: 'center' }}>Still stuck? Ask Jack’s AI in the corner.</p>
-      </Section>
+        <Section id="features" label="f" eyebrow="Features" title="Everything you need to stay close" lead="Chats, calls, communities and an AI assistant, in one app that works the same on your phone and on the web." art={<><LineArt name="selfie" height={300} opacity={0.22} className="lp-art lp-art--r" /></>}>
+          <div className="lp-cards lp-cards--4">{FEATURES.map(([i, t, d]) => <div key={t} className="ys-card lp-card"><span className="ys-oval ys-oval--ember" style={{ width: 48 }}><Icon name={i} size={22} /></span><strong>{t}</strong><span>{d}</span></div>)}</div>
+        </Section>
+
+        <Section id="earn" label="e" eyebrow="INEX" title="Earn INEX for the things you already do" lead="INEX, the Indexx coin, adds up in your wallet. Withdraw it to your Indexx Exchange wallet, or use it across Indexx products." art={<><LineArt name="coins" height={260} opacity={0.22} className="lp-art lp-art--l" /><LineArt name="pay" height={240} opacity={0.2} className="lp-art lp-art--c" /></>}>
+          <div className="lp-earn">
+            <ul className="lp-ways">{WAYS.map(([i, t, d, p]) => <li key={t}><span className="ys-oval ys-oval--wash" style={{ width: 44 }}><Icon name={i} size={20} /></span><span className="p2-col" style={{ flex: 1 }}><strong>{t}</strong><span className="muted">{d}</span></span><b>{p}</b></li>)}</ul>
+            <div className="lp-example">
+              <div className="p2-hero lp-example__hero"><span className="ys-feature__deco a" /><span className="p2-hero__eyebrow">Your INEX</span><div className="p2-hero__num">2,450</div><span>+85 this week · 5-day streak</span></div>
+              <div className="p2-card p2-card--pad"><div className="p2-card__head"><strong>Daily check-in</strong><span className="p2-accent">Claim +20 today</span></div>
+                <div className="p2-week">{days.map((d) => <div key={d.label} className={`p2-week__day p2-week__day--${d.state}`}><span className="ys-oval">{d.state === 'done' ? <Icon name="check" size={16} /> : `+${d.p}`}</span><span>{d.label}</span></div>)}</div>
+              </div>
+              <span className="muted p2-xs">Example account. INEX rules can change.</span>
+            </div>
+          </div>
+        </Section>
+
+        <Section label="x" eyebrow="Indexx ecosystem" title="One account for every Indexx product" lead="Open BTCY, EMMM and the rest from Explore, and keep your INEX and referrals everywhere." art={<><LineArt name="trader" height={280} opacity={0.22} className="lp-art lp-art--r" /><LineArt name="wallet" height={220} opacity={0.2} className="lp-art lp-art--c" /></>}>
+          <div className="lp-cards lp-cards--6">{PRODUCTS.map((p) => <div key={p.id} className={`ys-card lp-product${p.live ? '' : ' p2-product--soon'}`}><span className="ys-oval" style={{ width: 56, ['--ys-oval-fill' as string]: '#ffffff' }}><img src={p.logo} alt="" /></span><strong>{p.name}</strong><span className="muted">{p.sub}</span></div>)}</div>
+        </Section>
+
+        <section id="communities" className="lp-section" aria-labelledby="c-t">
+          <div className="lp-wrap">
+            <div className="lp-band">
+              <span className="ys-feature__deco a" /><span className="ys-feature__deco b" />
+              <div className="lp-band__copy">
+                <span className="lp-band__eyebrow">Communities</span>
+                <h2 id="c-t">Bring your people together</h2>
+                <p>Run a trading club, a running group or your whole neighbourhood. Members pick the groups they want, and announcements reach everyone.</p>
+                <ul><li><Icon name="megaphone" size={18} />Announcements only admins post to</li><li><Icon name="check" size={18} />Approve who joins with one tap</li><li><Icon name="flag" size={18} />Reported messages go straight to admins</li></ul>
+                <OvalButton icon="plus" label="Start a community" size="md" variant="secondary" href={SIGN_IN_URL} />
+              </div>
+              <LineArt name="hype" width={360} ink="#ffffff" opacity={0.85} className="lp-band__art" />
+            </div>
+          </div>
+        </section>
+
+        <Section label="s" eyebrow="Safety and privacy" title="You decide who reaches you" art={<><LineArt name="explorer" height={300} opacity={0.22} className="lp-art lp-art--l" /><LineArt name="snap" height={220} opacity={0.2} className="lp-art lp-art--c" /></>}>
+          <div className="lp-cards lp-cards--3">{SAFETY.map(([i, t, d]) => <div key={t} className="ys-card lp-card"><span className="ys-oval ys-oval--wash" style={{ width: 52 }}><Icon name={i} size={22} /></span><strong>{t}</strong><span>{d}</span></div>)}</div>
+        </Section>
+
+        <section id="download" className="lp-section" aria-labelledby="d-t">
+          <LineArt name="reader" height={260} opacity={0.18} className="lp-art lp-art--c lp-art--low" />
+          <div className="lp-wrap lp-download">
+            <div className="p2-col" style={{ gap: 14, flex: 1 }}>
+              <span className="ys-eyebrow">Get YaysApp</span>
+              <h2 id="d-t">Start chatting in a minute</h2>
+              <p className="muted">Sign up with your phone number, find your friends and claim your first check-in today.</p>
+              <Stores />
+              <div className="row" style={{ gap: 24 }}><OvalButton icon="globe" label="Open web app" size="md" href={SIGN_IN_URL} /></div>
+            </div>
+            <LineArt name="skater" height={320} />
+          </div>
+        </section>
+
+        <Section id="faq" label="q" eyebrow="Help" title="Questions people ask" art={<><LineArt name="lantern" height={240} opacity={0.22} className="lp-art lp-art--r" /><LineArt name="morning" height={240} opacity={0.2} className="lp-art lp-art--c" /></>}>
+          <div className="faq lp-faq">{FAQ.map(([q, a]) => <details key={q}><summary>{q}</summary><p>{a}</p></details>)}</div>
+          <p className="muted" style={{ textAlign: 'center' }}>Still stuck? Ask Jack’s AI in the corner.</p>
+        </Section>
 
       </main>
       <SiteFooter />
