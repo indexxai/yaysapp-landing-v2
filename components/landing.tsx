@@ -248,7 +248,9 @@ function SiteAssistant() {
       )}
       <div className="sa-launch-wrap">
         <button type="button" className="sa-launch" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-label={open ? 'Close the chat assistant' : 'Open the chat assistant'}>
-          <span className="ys-oval ys-oval--ember" style={{ width: 68 }}><Icon name={open ? 'close' : 'chats'} size={open ? 24 : 28} /></span>
+          {open
+            ? <span className="ys-oval ys-oval--ember" style={{ width: 68 }}><Icon name="close" size={24} /></span>
+            : <span className="ys-oval sa-launch__jack" style={{ width: 68 }}><img src="/launcher/jacksAiLogo.png" alt="" /></span>}
           <span>{open ? 'Close' : 'Ask Jack'}</span>
         </button>
       </div>
